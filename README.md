@@ -11,7 +11,7 @@ This is an exectuable python packge. It requires the passing of parameters at th
 -parquet : A flag that changes the data type from default CSV to Parquet file for download.
 
 ## Processing
-The data will be downloaded as the series of daily files. At this point you can then concatenate the files together to create an entire time-series of the system's activity. We suggest using pandas to open each CSV or parquet file and then use pandas.concatenate() to merge each file's contents as they are opened. 
+The data will be downloaded as the series of daily files. At this point you can then concatenate the files together to create an entire time-series of the system's activity. We suggest using pandas to open each CSV or parquet file and then use pandas.concat() to merge each file's contents as they are opened. 
 
 We decided to maintain the daily files for download, due to the size of the final file. In some cases, this could be quite large and to take an extreme amount of time to download.
 
