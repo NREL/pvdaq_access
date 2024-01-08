@@ -27,6 +27,45 @@ from botocore.handlers import disable_signing
 import pandas as pd
 
 #---------------------------------------------------------------------------   
+def downloadSolarPrizeData(system_id, path, file_type='csv'):
+    '''
+    Method to access and pull Solar Data Bounty Prize datasets from 
+    the OEDI Data Lake for PVDAQ
+    Parameters:
+    -----------------------
+    system_id : str - system id value found from query of Solar Data Prize systems 
+    available .
+    path : str - local system location files are to be stored in.
+    file_type : str - default is .csv, but parquet canbe passed in as option
+    
+    Returns
+    -----------------------
+    void
+    
+    '''
+    s3 = boto3.resource("s3")
+    s3.meta.client.meta.events.register("choose-signer.s3.*", disable_signing)
+    bucket = s3.Bucket("oedi-data-lake")
+    
+    #Find each target file in buckets
+    target_dir = system_id + '_OEDI'
+    prefix =  "pvdaq/2023-solar-data-prize/" +  target_dir + "/data/"
+    objects = bucket.objects.filter(Prefix=prefix)
+    
+    for obj in objects:
+        if obj.key == prefix:
+            continue            
+        try:
+            bucket.download_file(obj.key, os.path.join(path, os.path.basename(obj.key)).replace("\\", "/"))
+        except botocore.exceptions.ClientError as e:
+            print ('ERROR: Boto3 exception ' + str(e))
+        else:
+            print ('File ' + os.path.join(path, os.path.basename(obj.key)) + " downloaded successfully.")
+            
+    return
+
+
+#---------------------------------------------------------------------------   
 def downloadData(system_id, path, file_type='csv'):
     '''
     Method to access and pull data from the OEDI Data Lake for PVDAQ
@@ -107,14 +146,23 @@ if __name__ == '__main__':
     parser.add_argument('-path', type=str,  help="Location to store files locally")
     parser.add_argument('-parquet', help="Access parquet files (default is .csv)", action="store_true")
     args = parser.parse_args()
-       
+    
     if args.system:
-        if args.parquet:
-            downloadData(args.system, args.path, file_type='parquet')
-        else:
-            downloadData(args.system, args.path)
-            #Create single file from data
-            concatenateData(args.system, args.path)            
+        input_string = input("Are you accessing data from the DOE Solar Data Bounty Prize: (Y/N): ")
+        #Handle Solar Data Bounty Prize archives
+        if input_string.lower() == 'y':
+            downloadSolarPrizeData(args.system, args.path, file_type='csv')
+            quit()
+        
+        else:   #Normal PVDAQ archives
+            if args.parquet:
+                downloadData(args.system, args.path, file_type='parquet')
+            else:
+                downloadData(args.system, args.path)
+                #Create single file from data
+                input_string = input("Do you wish to concatenate the files (Y/N): ") 
+                if input_string.lower() == 'y':
+                    concatenateData(args.system, args.path)
     else:
         print('Missing system_id, Exiting.')
     
