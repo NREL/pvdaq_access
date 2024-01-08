@@ -4,7 +4,7 @@ A program to facilitate the download of a system's data from the OEDI website fo
 ## Overview
 Data from public PV Sites is available through the [OEDI Data Lake][1]. This data is refreshed monthly where possible, and is stored in daily CSV or Parquet files for each system. This softeware module will allow a user to downlaod all the data to their local system from the OEDI Data Lake.
 
-## Useage
+## Usage
 This is an exectuable python packge. It requires the passing of parameters at the start.
 -system : Followed by an integer of the system unique ID which can be found in the metadata file for Available System Information on the [OEDI site][1]
 -path : Followed by a string that targets the local computer location/path you wish the data to be stored into.
