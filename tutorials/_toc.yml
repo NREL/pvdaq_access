@@ -1,0 +1,8 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+chapters:
+- file: tutorials/1 - Downloading Data, and doing a Quality Assessment
+- file: tutorials/2 - Running RdTools on the data
