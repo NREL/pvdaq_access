@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>1 - Basics run &#8212; pvdaq_access Training</title>
+    <title>1 - Downloading Data, and doing a Quality Assessment &#8212; pvdaq_access Training</title>
   
   
   
@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/1 - Downloading Data, and doing a Quality Assessment';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2 - Comparison Run" href="2%20-%20Running%20RdTools%20on%20the%20data.html" />
+    <link rel="next" title="2 - Running RdTools on the data" href="2%20-%20Running%20RdTools%20on%20the%20data.html" />
     <link rel="prev" title="Welcome to the PVDAQ Training" href="../intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -167,8 +167,11 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">1 - Basics run</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2%20-%20Running%20RdTools%20on%20the%20data.html">2 - Comparison Run</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1 - Downloading Data, and doing a Quality Assessment</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="2%20-%20Running%20RdTools%20on%20the%20data.html">2 - Running RdTools on the data</a></li>
+
 </ul>
 
     </div>
@@ -401,7 +404,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>1 - Basics run</h1>
+    <h1>1 - Downloading Data, and doing a Quality Assessment</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -411,14 +414,15 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-create-pv-ice-simulation-object">1. Setup and Create PV ICE Simulation Object</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-files-to-the-folder-now">2. Add the Files to the Folder now</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-scenario">3. Create your Scenario</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-flows">4. Run the flows</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate-results">5. Aggregate Results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-simulation">6. Save Simulation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-internal-plotting-functions-to-plot-results">7. Use internal plotting functions to plot results</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">1 - Downloading Data, and doing a Quality Assessment</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">1. Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download">2. Download</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#look-at-the-data">3. Look at the data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#do-pvanalytics-clear-sky-detection">4. Do PVAnalytics Clear-Sky Detection</a></li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -429,39 +433,171 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="basics-run">
-<h1>1 - Basics run<a class="headerlink" href="#basics-run" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="downloading-data-and-doing-a-quality-assessment">
+<h1>1 - Downloading Data, and doing a Quality Assessment<a class="headerlink" href="#downloading-data-and-doing-a-quality-assessment" title="Permalink to this heading">#</a></h1>
 <p><strong>Objectives:</strong></p>
 <ol class="arabic simple">
-<li><p>Read in necessary mass and energy data</p></li>
-<li><p>Run</p></li>
-<li><p>Generate plots</p></li>
+<li><p>Install software</p></li>
+<li><p>Donwload dataset</p></li>
+<li><p>Run a clear-sky pvanalytics routine (or other)</p></li>
 </ol>
-<section id="setup-and-create-pv-ice-simulation-object">
-<h2>1. Setup and Create PV ICE Simulation Object<a class="headerlink" href="#setup-and-create-pv-ice-simulation-object" title="Permalink to this heading">#</a></h2>
+<section id="setup">
+<h2>1. Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># if running on google colab, uncomment the next line and execute this cell to install the dependencies and prevent &quot;ModuleNotFoundError&quot; in later cells:</span>
-<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/NREL/PV_ICE.git@development
+<span class="c1"># Dev branch example: !pip install git+https://github.com/NREL/PV_ICE.git@development</span>
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>https://raw.githubusercontent.com/NREL/pvdaq_access/main/requirements.txt
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pvanalytics
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^C
-Defaulting to user installation because normal site-packages is not writeable
-Collecting git+https://github.com/NREL/PV_ICE.git@development
-  Cloning https://github.com/NREL/PV_ICE.git (to revision development) to c:\users\sayala\appdata\local\temp\1\pip-req-build-a2qjeb5d
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Defaulting to user installation because normal site-packages is not writeable
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Running command git clone --filter=blob:none --quiet https://github.com/NREL/PV_ICE.git &#39;C:\Users\sayala\AppData\Local\Temp\1\pip-req-build-a2qjeb5d&#39;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ERROR: 404 Client Error: Not Found for url: https://raw.githubusercontent.com/NREL/pvdaq_access/main/requirements.txt
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Defaulting to user installation because normal site-packages is not writeable
+Collecting pvanalytics
+  Downloading pvanalytics-0.1.3-py3-none-any.whl (516 kB)
+     ---------------------------------------- 0.0/516.1 kB ? eta -:--:--
+     --- ----------------------------------- 41.0/516.1 kB 2.0 MB/s eta 0:00:01
+     ---------- --------------------------- 143.4/516.1 kB 1.7 MB/s eta 0:00:01
+     ----------- -------------------------- 153.6/516.1 kB 1.1 MB/s eta 0:00:01
+     ----------- -------------------------- 153.6/516.1 kB 1.1 MB/s eta 0:00:01
+     --------------- ---------------------- 204.8/516.1 kB 1.0 MB/s eta 0:00:01
+     --------------- -------------------- 225.3/516.1 kB 986.4 kB/s eta 0:00:01
+     ----------------- ------------------ 256.0/516.1 kB 927.4 kB/s eta 0:00:01
+     ----------------- ------------------ 256.0/516.1 kB 927.4 kB/s eta 0:00:01
+     ------------------- ---------------- 276.5/516.1 kB 741.6 kB/s eta 0:00:01
+     ------------------- ---------------- 276.5/516.1 kB 741.6 kB/s eta 0:00:01
+     ------------------- ---------------- 276.5/516.1 kB 741.6 kB/s eta 0:00:01
+     ------------------- ---------------- 286.7/516.1 kB 590.8 kB/s eta 0:00:01
+     ------------------- ---------------- 286.7/516.1 kB 590.8 kB/s eta 0:00:01
+     ------------------- ---------------- 286.7/516.1 kB 590.8 kB/s eta 0:00:01
+     --------------------- -------------- 307.2/516.1 kB 487.6 kB/s eta 0:00:01
+     --------------------- -------------- 307.2/516.1 kB 487.6 kB/s eta 0:00:01
+     --------------------- -------------- 307.2/516.1 kB 487.6 kB/s eta 0:00:01
+     --------------------- -------------- 307.2/516.1 kB 487.6 kB/s eta 0:00:01
+     ---------------------- ------------- 317.4/516.1 kB 401.6 kB/s eta 0:00:01
+     ---------------------- ------------- 317.4/516.1 kB 401.6 kB/s eta 0:00:01
+     ---------------------- ------------- 317.4/516.1 kB 401.6 kB/s eta 0:00:01
+     ---------------------- ------------- 317.4/516.1 kB 401.6 kB/s eta 0:00:01
+     ----------------------- ------------ 337.9/516.1 kB 355.4 kB/s eta 0:00:01
+     ----------------------- ------------ 337.9/516.1 kB 355.4 kB/s eta 0:00:01
+     ----------------------- ------------ 337.9/516.1 kB 355.4 kB/s eta 0:00:01
+     ----------------------- ------------ 337.9/516.1 kB 355.4 kB/s eta 0:00:01
+     ----------------------- ------------ 337.9/516.1 kB 355.4 kB/s eta 0:00:01
+     ----------------------- ------------ 337.9/516.1 kB 355.4 kB/s eta 0:00:01
+     ----------------------- ------------ 337.9/516.1 kB 355.4 kB/s eta 0:00:01
+     ----------------------- ------------ 337.9/516.1 kB 355.4 kB/s eta 0:00:01
+     ------------------------ ----------- 358.4/516.1 kB 271.8 kB/s eta 0:00:01
+     ------------------------ ----------- 358.4/516.1 kB 271.8 kB/s eta 0:00:01
+     ------------------------- ---------- 368.6/516.1 kB 260.7 kB/s eta 0:00:01
+     ------------------------- ---------- 368.6/516.1 kB 260.7 kB/s eta 0:00:01
+     ------------------------- ---------- 368.6/516.1 kB 260.7 kB/s eta 0:00:01
+     --------------------------- -------- 399.4/516.1 kB 256.8 kB/s eta 0:00:01
+     --------------------------- -------- 399.4/516.1 kB 256.8 kB/s eta 0:00:01
+     --------------------------- -------- 399.4/516.1 kB 256.8 kB/s eta 0:00:01
+     --------------------------- -------- 399.4/516.1 kB 256.8 kB/s eta 0:00:01
+     ---------------------------- ------- 409.6/516.1 kB 238.9 kB/s eta 0:00:01
+     ---------------------------- ------- 409.6/516.1 kB 238.9 kB/s eta 0:00:01
+     ----------------------------- ------ 430.1/516.1 kB 239.9 kB/s eta 0:00:01
+     ----------------------------- ------ 430.1/516.1 kB 239.9 kB/s eta 0:00:01
+     ------------------------------- ---- 450.6/516.1 kB 240.9 kB/s eta 0:00:01
+     ------------------------------- ---- 450.6/516.1 kB 240.9 kB/s eta 0:00:01
+     ------------------------------- ---- 450.6/516.1 kB 240.9 kB/s eta 0:00:01
+     ------------------------------- ---- 450.6/516.1 kB 240.9 kB/s eta 0:00:01
+     ------------------------------- ---- 450.6/516.1 kB 240.9 kB/s eta 0:00:01
+     ------------------------------- ---- 450.6/516.1 kB 240.9 kB/s eta 0:00:01
+     ------------------------------- ---- 450.6/516.1 kB 240.9 kB/s eta 0:00:01
+     ------------------------------- ---- 450.6/516.1 kB 240.9 kB/s eta 0:00:01
+     -------------------------------- --- 460.8/516.1 kB 210.5 kB/s eta 0:00:01
+     -------------------------------- --- 460.8/516.1 kB 210.5 kB/s eta 0:00:01
+     -------------------------------- --- 460.8/516.1 kB 210.5 kB/s eta 0:00:01
+     -------------------------------- --- 460.8/516.1 kB 210.5 kB/s eta 0:00:01
+     --------------------------------- -- 481.3/516.1 kB 203.7 kB/s eta 0:00:01
+     --------------------------------- -- 481.3/516.1 kB 203.7 kB/s eta 0:00:01
+     --------------------------------- -- 481.3/516.1 kB 203.7 kB/s eta 0:00:01
+     --------------------------------- -- 481.3/516.1 kB 203.7 kB/s eta 0:00:01
+     --------------------------------- -- 481.3/516.1 kB 203.7 kB/s eta 0:00:01
+     --------------------------------- -- 481.3/516.1 kB 203.7 kB/s eta 0:00:01
+     ---------------------------------- - 491.5/516.1 kB 185.6 kB/s eta 0:00:01
+     ---------------------------------- - 491.5/516.1 kB 185.6 kB/s eta 0:00:01
+     -----------------------------------  512.0/516.1 kB 186.7 kB/s eta 0:00:01
+     ------------------------------------ 516.1/516.1 kB 188.3 kB/s eta 0:00:00
+Requirement already satisfied: numpy&gt;=1.15.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from pvanalytics) (1.24.4)
+Requirement already satisfied: pandas!=1.1.*,&gt;=0.24.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from pvanalytics) (2.1.0)
+Requirement already satisfied: pvlib&gt;=0.8.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from pvanalytics) (0.9.5)
+Requirement already satisfied: scipy&gt;=1.2.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from pvanalytics) (1.11.1)
+Requirement already satisfied: statsmodels&gt;=0.9.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from pvanalytics) (0.14.0)
+Requirement already satisfied: scikit-image&gt;=0.16.0 in c:\programdata\anaconda3\lib\site-packages (from pvanalytics) (0.20.0)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in c:\programdata\anaconda3\lib\site-packages (from pandas!=1.1.*,&gt;=0.24.0-&gt;pvanalytics) (2.8.2)
+Requirement already satisfied: pytz&gt;=2020.1 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from pandas!=1.1.*,&gt;=0.24.0-&gt;pvanalytics) (2023.3)
+Requirement already satisfied: tzdata&gt;=2022.1 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from pandas!=1.1.*,&gt;=0.24.0-&gt;pvanalytics) (2023.3)
+Requirement already satisfied: requests in c:\users\sayala\appdata\roaming\python\python311\site-packages (from pvlib&gt;=0.8.0-&gt;pvanalytics) (2.31.0)
+Requirement already satisfied: h5py in c:\users\sayala\appdata\roaming\python\python311\site-packages (from pvlib&gt;=0.8.0-&gt;pvanalytics) (3.9.0)
+Requirement already satisfied: networkx&gt;=2.8 in c:\programdata\anaconda3\lib\site-packages (from scikit-image&gt;=0.16.0-&gt;pvanalytics) (3.1)
+Requirement already satisfied: pillow&gt;=9.0.1 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from scikit-image&gt;=0.16.0-&gt;pvanalytics) (10.0.0)
+Requirement already satisfied: imageio&gt;=2.4.1 in c:\programdata\anaconda3\lib\site-packages (from scikit-image&gt;=0.16.0-&gt;pvanalytics) (2.26.0)
+Requirement already satisfied: tifffile&gt;=2019.7.26 in c:\programdata\anaconda3\lib\site-packages (from scikit-image&gt;=0.16.0-&gt;pvanalytics) (2021.7.2)
+Requirement already satisfied: PyWavelets&gt;=1.1.1 in c:\programdata\anaconda3\lib\site-packages (from scikit-image&gt;=0.16.0-&gt;pvanalytics) (1.4.1)
+Requirement already satisfied: packaging&gt;=20.0 in c:\programdata\anaconda3\lib\site-packages (from scikit-image&gt;=0.16.0-&gt;pvanalytics) (23.0)
+Requirement already satisfied: lazy_loader&gt;=0.1 in c:\programdata\anaconda3\lib\site-packages (from scikit-image&gt;=0.16.0-&gt;pvanalytics) (0.2)
+Requirement already satisfied: patsy&gt;=0.5.2 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from statsmodels&gt;=0.9.0-&gt;pvanalytics) (0.5.3)
+Requirement already satisfied: six in c:\programdata\anaconda3\lib\site-packages (from patsy&gt;=0.5.2-&gt;statsmodels&gt;=0.9.0-&gt;pvanalytics) (1.16.0)
+Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from requests-&gt;pvlib&gt;=0.8.0-&gt;pvanalytics) (3.2.0)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in c:\programdata\anaconda3\lib\site-packages (from requests-&gt;pvlib&gt;=0.8.0-&gt;pvanalytics) (3.4)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in c:\programdata\anaconda3\lib\site-packages (from requests-&gt;pvlib&gt;=0.8.0-&gt;pvanalytics) (1.26.16)
+Requirement already satisfied: certifi&gt;=2017.4.17 in c:\programdata\anaconda3\lib\site-packages (from requests-&gt;pvlib&gt;=0.8.0-&gt;pvanalytics) (2023.7.22)
+Installing collected packages: pvanalytics
+Successfully installed pvanalytics-0.1.3
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PV_ICE</span>
-<span class="n">PV_ICE</span><span class="o">.</span><span class="n">__version__</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pvanalytics</span>
+<span class="n">pvanalytics</span><span class="o">.</span><span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">pvanalytics.features.clearsky</span> <span class="kn">import</span> <span class="n">reno</span>       <span class="c1">#update to just do a pvanalytics import?</span>
+<span class="kn">import</span> <span class="nn">pvlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>  <span class="c1"># this might not be needed as working on same directory as data here?</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\ProgramData\anaconda3\Lib\site-packages\paramiko\transport.py:219: CryptographyDeprecationWarning: Blowfish has been deprecated
+  &quot;class&quot;: algorithms.Blowfish,
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pvanalytics</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">pvanalytics</span><span class="o">.</span><span class="n">__version__</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">pvanalytics.features.clearsky</span> <span class="kn">import</span> <span class="n">reno</span>       <span class="c1">#update to just do a pvanalytics import?</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">pvlib</span>
+
+<span class="ne">AttributeError</span>: module &#39;pvanalytics&#39; has no attribute &#39;__version__&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This information helps with debugging and getting support :)</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">platform</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Working on a &quot;</span><span class="p">,</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">(),</span> <span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python version &quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pandas version &quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PVlib version &quot;</span><span class="p">,</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pvanalytics version &quot;</span><span class="p">,</span> <span class="n">pvanalytics</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pvdaq_access version &quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -476,213 +612,234 @@ Collecting git+https://github.com/NREL/PV_ICE.git@development
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span> <span class="o">=</span> <span class="n">PV_ICE</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Sim1&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">testfolder</span><span class="p">);</span> <span class="c1"># Is it possible to define more than one simulation here?</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>PV ICE uses <i>object oriented programing</i>, so this created a <code class="docutils literal notranslate"><span class="pre">PV_ICE.main.Simulation</span></code> Object. An Object is data field that has unique attributes and behaviors. We can crack open objects with the <code class="docutils literal notranslate"><span class="pre">.__dict__</span></code> command</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="vm">__dict__</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">baselinepath</span> <span class="o">=</span> <span class="s1">&#39;/content&#39;</span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
-<section id="add-the-files-to-the-folder-now">
-<h2>2. Add the Files to the Folder now<a class="headerlink" href="#add-the-files-to-the-folder-now" title="Permalink to this heading">#</a></h2>
-<p>Drag the files to the <code class="docutils literal notranslate"><span class="pre">/content</span></code> folder</p>
-<p>Alternatively, the cell below can open a upload window</p>
+<section id="download">
+<h2>2. Download<a class="headerlink" href="#download" title="Permalink to this heading">#</a></h2>
+<p>pvdaq Script :(</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#from google.colab import files</span>
-<span class="c1">#files.upload()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="create-your-scenario">
-<h2>3. Create your Scenario<a class="headerlink" href="#create-your-scenario" title="Permalink to this heading">#</a></h2>
-<p>First create scenario and add its module files</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">createScenario</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">,</span> 
-                  <span class="n">massmodulefile</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;baseline_modules_mass_US.csv&#39;</span><span class="p">,</span> 
-                  <span class="n">energymodulefile</span> <span class="o">=</span> <span class="s1">&#39;baseline_modules_energy.csv&#39;</span> <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Then add at least one material file</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">scenario</span><span class="p">[</span><span class="s1">&#39;standard&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">addMaterial</span><span class="p">(</span><span class="n">materialname</span><span class="o">=</span><span class="s1">&#39;glass&#39;</span><span class="p">,</span> 
-                                    <span class="n">massmatfile</span><span class="o">=</span><span class="s1">&#39;/content/baseline_material_mass_glass.csv&#39;</span><span class="p">,</span> 
-                                    <span class="n">energymatfile</span><span class="o">=</span><span class="s1">&#39;/content/baseline_material_energy_glass.csv&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>We can explore the module and material objects now. For example:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">scenario</span><span class="p">[</span><span class="s1">&#39;standard&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">material</span><span class="p">[</span><span class="s1">&#39;glass&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">scenario</span><span class="p">[</span><span class="s1">&#39;standard&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">material</span><span class="p">[</span><span class="s1">&#39;glass&#39;</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">scenario</span><span class="p">[</span><span class="s1">&#39;standard&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">material</span><span class="p">[</span><span class="s1">&#39;glass&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">matdataIn_m</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="run-the-flows">
-<h2>4. Run the flows<a class="headerlink" href="#run-the-flows" title="Permalink to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">calculateMassFlow</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">calculateEnergyFlow</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Same thing, but together</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">calculateFlows</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>We can explore the outputs. They are still a bit raw at this step</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">scenario</span><span class="p">[</span><span class="s1">&#39;standard&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dataOut_m</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="aggregate-results">
-<h2>5. Aggregate Results<a class="headerlink" href="#aggregate-results" title="Permalink to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">USyearly</span><span class="p">,</span> <span class="n">UScum</span> <span class="o">=</span> <span class="n">r1</span><span class="o">.</span><span class="n">aggregateResults</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">boto3</span>
+<span class="kn">import</span> <span class="nn">botocore</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">from</span> <span class="nn">botocore.handlers</span> <span class="kn">import</span> <span class="n">disable_signing</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="c1"># The results are also saved into the simulation object itself:</span>
-<span class="c1"># r1.USyearly</span>
-<span class="c1"># r1.UScum</span>
+<span class="c1">#---------------------------------------------------------------------------   </span>
+<span class="k">def</span> <span class="nf">downloadSolarPrizeData</span><span class="p">(</span><span class="n">system_id</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Method to access and pull Solar Data Bounty Prize datasets from </span>
+<span class="sd">    the OEDI Data Lake for PVDAQ</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------------------</span>
+<span class="sd">    system_id : str - system id value found from query of Solar Data Prize systems </span>
+<span class="sd">    available .</span>
+<span class="sd">    path : str - local system location files are to be stored in.</span>
+<span class="sd">    file_type : str - default is .csv, but parquet canbe passed in as option</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -----------------------</span>
+<span class="sd">    void</span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s2">&quot;s3&quot;</span><span class="p">)</span>
+    <span class="n">s3</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;choose-signer.s3.*&quot;</span><span class="p">,</span> <span class="n">disable_signing</span><span class="p">)</span>
+    <span class="n">bucket</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="s2">&quot;oedi-data-lake&quot;</span><span class="p">)</span>
+    
+    <span class="c1">#Find each target file in buckets</span>
+    <span class="n">target_dir</span> <span class="o">=</span> <span class="n">system_id</span> <span class="o">+</span> <span class="s1">&#39;_OEDI&#39;</span>
+    <span class="n">prefix</span> <span class="o">=</span>  <span class="s2">&quot;pvdaq/2023-solar-data-prize/&quot;</span> <span class="o">+</span>  <span class="n">target_dir</span> <span class="o">+</span> <span class="s2">&quot;/data/&quot;</span>
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">prefix</span><span class="p">:</span>
+            <span class="k">continue</span>            
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">bucket</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">key</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">))</span>
+        <span class="k">except</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ClientError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;ERROR: Boto3 exception &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;File &#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">key</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; downloaded successfully.&quot;</span><span class="p">)</span>
+            
+    <span class="k">return</span>
+
+
+<span class="c1">#---------------------------------------------------------------------------   </span>
+<span class="k">def</span> <span class="nf">downloadData</span><span class="p">(</span><span class="n">system_id</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Method to access and pull data from the OEDI Data Lake for PVDAQ</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------------------</span>
+<span class="sd">    system_id : str - system id value found from query of OEDI PVDAQ queue </span>
+<span class="sd">    of available .</span>
+<span class="sd">    path : str - local system location files are to be stored in.</span>
+<span class="sd">    file_type : str - default is .csv, but parquet canbe passed in as option</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -----------------------</span>
+<span class="sd">    void</span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s2">&quot;s3&quot;</span><span class="p">)</span>
+    <span class="n">s3</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;choose-signer.s3.*&quot;</span><span class="p">,</span> <span class="n">disable_signing</span><span class="p">)</span>
+    <span class="n">bucket</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">Bucket</span><span class="p">(</span><span class="s2">&quot;oedi-data-lake&quot;</span><span class="p">)</span>
+    
+    <span class="c1">#Find each target file in buckets</span>
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+        <span class="n">Prefix</span><span class="o">=</span><span class="s2">&quot;pvdaq/&quot;</span> <span class="o">+</span> <span class="n">file_type</span> <span class="o">+</span> <span class="s2">&quot;/pvdata/system_id=&quot;</span> <span class="o">+</span> <span class="n">system_id</span> <span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">bucket</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">key</span><span class="p">)))</span>
+        <span class="k">except</span> <span class="n">botocore</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ClientError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;ERROR: Boto3 exception &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;File &#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">key</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; downloaded successfully.&quot;</span><span class="p">)</span>
+            
+    <span class="k">return</span>
+
+
+<span class="c1">#---------------------------------------------------------------------------   </span>
+<span class="k">def</span> <span class="nf">concatenateData</span><span class="p">(</span><span class="n">system_id</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Method to merge the multiple files coming in from OEDI</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------------------</span>
+<span class="sd">    system_id : str - system id value found from query of OEDI PVDAQ queue </span>
+<span class="sd">    of available .</span>
+<span class="sd">    path : str - local system location files are to be stored in.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -----------------------</span>
+<span class="sd">    void</span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1">#get list of files in directory</span>
+    <span class="n">file_list</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">column_name</span> <span class="o">=</span> <span class="s1">&#39;sensor_name&#39;</span>
+    <span class="c1">#Build a dataframe from current file</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Starting data extraction&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracting file &quot;</span> <span class="o">+</span> <span class="n">file</span><span class="p">)</span>
+        <span class="n">df_file</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">file</span><span class="p">)</span>
+        <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_file</span><span class="p">)</span>
+         
+    <span class="c1">#Build the master data frame from the assembled individual frames.</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Concatenating all files&quot;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">target_outputfile</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;/system_&quot;</span> <span class="o">+</span> <span class="n">system_id</span> <span class="o">+</span> <span class="s2">&quot;_data.csv&quot;</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;File is &quot;</span> <span class="o">+</span> <span class="n">target_outputfile</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">target_outputfile</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Actually running now</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">USyearly</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">UScum</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">&quot; ..: Starting data access script for PVDAQ OEDI datasets :..&quot;</span><span class="p">)</span>
+
+<span class="c1">#Get parameters from command line</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-system&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Target system ID&quot;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-path&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>  <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Location to store files locally&quot;</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-parquet&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Access parquet files (default is .csv)&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">system</span><span class="p">:</span>
+    <span class="n">input_string</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Are you accessing data from the DOE Solar Data Bounty Prize: (Y/N): &quot;</span><span class="p">)</span>
+    <span class="c1">#Handle Solar Data Bounty Prize archives</span>
+    <span class="k">if</span> <span class="n">input_string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+        <span class="n">downloadSolarPrizeData</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">system</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;csv&#39;</span><span class="p">)</span>
+        <span class="n">quit</span><span class="p">()</span>
+
+    <span class="k">else</span><span class="p">:</span>   <span class="c1">#Normal PVDAQ archives</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">parquet</span><span class="p">:</span>
+            <span class="n">downloadData</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">system</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;parquet&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">downloadData</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">system</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+            <span class="c1">#Create single file from data</span>
+            <span class="n">input_string</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Do you wish to concatenate the files (Y/N): &quot;</span><span class="p">)</span> 
+            <span class="k">if</span> <span class="n">input_string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+                <span class="n">concatenateData</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">system</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Missing system_id, Exiting.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="save-simulation">
-<h2>6. Save Simulation<a class="headerlink" href="#save-simulation" title="Permalink to this heading">#</a></h2>
-<p>This is useful to see the inputs (in case you modified the values with some of the support functions), the full dataframes of internal processing data, and the outputs in an organized manner</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">saveSimulation</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
-<section id="use-internal-plotting-functions-to-plot-results">
-<h2>7. Use internal plotting functions to plot results<a class="headerlink" href="#use-internal-plotting-functions-to-plot-results" title="Permalink to this heading">#</a></h2>
-<p>From this list, select the one that fits your study and select the type of plotting method. There are various plotting options:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">plotScenariosComparison</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plotMaterialComparisonAcrossScenarios</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plotMetricResults</span></code>: You can select the following keyword options: ‘VirginStock’, ‘WasteALL’, ‘WasteEOL’, ‘WasteMFG’</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plotMaterialResults</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plotInstalledCapacityResults</span></code></p></li>
-</ul>
-<p>You can also view all the keywords you can use by calling the function without argumnets, or by printing the keys to the module data or the material data</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">plotMetricResults</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">plotScenariosComparison</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">plotMaterialComparisonAcrossScenarios</span><span class="p">(</span><span class="n">material</span><span class="o">=</span><span class="s1">&#39;silicon&#39;</span><span class="p">,</span> <span class="n">keyword</span><span class="o">=</span><span class="s1">&#39;mat_virgin_eff&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">plotMaterialResults</span><span class="p">(</span><span class="n">keyword</span><span class="o">=</span><span class="s1">&#39;VirginStock&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">plotInstalledCapacityResults</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
+<section class="tex2jax_ignore mathjax_ignore" id="look-at-the-data">
+<h1>3. Look at the data<a class="headerlink" href="#look-at-the-data" title="Permalink to this heading">#</a></h1>
+<p>just one plot</p>
 </section>
+<section class="tex2jax_ignore mathjax_ignore" id="do-pvanalytics-clear-sky-detection">
+<h1>4. Do PVAnalytics Clear-Sky Detection<a class="headerlink" href="#do-pvanalytics-clear-sky-detection" title="Permalink to this heading">#</a></h1>
+<p>Identifying periods of clear-sky conditions using measured irradiance.</p>
+<p>Identifying and filtering for clear-sky conditions is a useful way to
+reduce noise when analyzing measured data.  This example shows how to
+use :py:func:<code class="docutils literal notranslate"><span class="pre">pvanalytics.features.clearsky.reno</span></code> to identify clear-sky
+conditions using measured GHI data.  For this example we’ll use
+GHI measurements downloaded</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pvanalytics</span>
+<span class="kn">from</span> <span class="nn">pvanalytics.features.clearsky</span> <span class="kn">import</span> <span class="n">reno</span>
+<span class="kn">import</span> <span class="nn">pvlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First, read in the GHI measurements.  For this example we’ll use an example
+file included in pvanalytics covering a single day, but the same process
+applies to data of any length.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pvanalytics_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">pvanalytics</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">ghi_file</span> <span class="o">=</span> <span class="n">pvanalytics_dir</span> <span class="o">/</span> <span class="s1">&#39;data&#39;</span> <span class="o">/</span> <span class="s1">&#39;midc_bms_ghi_20220120.csv&#39;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ghi_file</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># or you can fetch the data straight from the source using pvlib:</span>
+<span class="c1"># date = pd.to_datetime(&#39;2022-01-20&#39;)</span>
+<span class="c1"># data = pvlib.iotools.read_midc_raw_data_from_nrel(&#39;BMS&#39;, date, date)</span>
+
+<span class="n">measured_ghi</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Global CMP22 (vent/cor) [W/m^2]&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now model clear-sky irradiance for the location and times of the
+measured data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">location</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="mf">39.742</span><span class="p">,</span> <span class="o">-</span><span class="mf">105.18</span><span class="p">)</span>
+<span class="n">clearsky</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">get_clearsky</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">clearsky_ghi</span> <span class="o">=</span> <span class="n">clearsky</span><span class="p">[</span><span class="s1">&#39;ghi&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, use :py:func:<code class="docutils literal notranslate"><span class="pre">pvanalytics.features.clearsky.reno</span></code> to identify
+measurements during clear-sky conditions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">is_clearsky</span> <span class="o">=</span> <span class="n">reno</span><span class="p">(</span><span class="n">measured_ghi</span><span class="p">,</span> <span class="n">clearsky_ghi</span><span class="p">)</span>
+
+<span class="c1"># clear-sky times indicated in black</span>
+<span class="n">measured_ghi</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">measured_ghi</span><span class="p">[</span><span class="n">is_clearsky</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Global Horizontal Irradiance [W/m2]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -729,7 +886,7 @@ Collecting git+https://github.com/NREL/PV_ICE.git@development
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">2 - Comparison Run</p>
+        <p class="prev-next-title">2 - Running RdTools on the data</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -748,14 +905,15 @@ Collecting git+https://github.com/NREL/PV_ICE.git@development
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-create-pv-ice-simulation-object">1. Setup and Create PV ICE Simulation Object</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-the-files-to-the-folder-now">2. Add the Files to the Folder now</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-scenario">3. Create your Scenario</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-flows">4. Run the flows</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate-results">5. Aggregate Results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-simulation">6. Save Simulation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-internal-plotting-functions-to-plot-results">7. Use internal plotting functions to plot results</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">1 - Downloading Data, and doing a Quality Assessment</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">1. Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download">2. Download</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#look-at-the-data">3. Look at the data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#do-pvanalytics-clear-sky-detection">4. Do PVAnalytics Clear-Sky Detection</a></li>
+</ul>
+
   </nav></div>
 
 </div></div>

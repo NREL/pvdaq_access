@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>2 - Comparison Run &#8212; pvdaq_access Training</title>
+    <title>2 - Running RdTools on the data &#8212; pvdaq_access Training</title>
   
   
   
@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/2 - Running RdTools on the data';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="1 - Basics run" href="1%20-%20Downloading%20Data%2C%20and%20doing%20a%20Quality%20Assessment.html" />
+    <link rel="prev" title="1 - Downloading Data, and doing a Quality Assessment" href="1%20-%20Downloading%20Data%2C%20and%20doing%20a%20Quality%20Assessment.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -166,8 +166,11 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="1%20-%20Downloading%20Data%2C%20and%20doing%20a%20Quality%20Assessment.html">1 - Basics run</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">2 - Comparison Run</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1%20-%20Downloading%20Data%2C%20and%20doing%20a%20Quality%20Assessment.html">1 - Downloading Data, and doing a Quality Assessment</a></li>
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2 - Running RdTools on the data</a></li>
+
 </ul>
 
     </div>
@@ -400,7 +403,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>2 - Comparison Run</h1>
+    <h1>2 - Running RdTools on the data</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -410,14 +413,29 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-create-pv-ice-simulation-object">1. Setup and Create PV ICE Simulation Object</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modify-the-files-and-add-to-the-folder-now">2. Modify the files and add to the folder now</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-standard-and-modified-scenarios">3. Create standard and modified scenarios</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-flows">4. Run the flows</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate-results">5. Aggregate Results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-simulation">6. Save Simulation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-internal-plotting-functions-to-plot-results">7. Use internal plotting functions to plot results</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">2 - Running RdTools on the data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">1. Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data-and-run-rdtools">1. Load data and run RdTools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#degradation-and-soiling-example-with-clearsky-workflow">Degradation and soiling example with clearsky workflow</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#updte-this-to-pvdaq-data">UPDTE THIS TO PVDAQ DATA</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-and-preliminary-calculations">0: Import and preliminary calculations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalize">1: Normalize</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter">2: Filter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate">3: Aggregate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#degradation-calculation">4: Degradation calculation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soiling-calculations">5: Soiling calculations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clear-sky-workflow">Clear sky workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clear-sky-0-preliminary-calculations">Clear Sky 0: Preliminary Calculations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clear-sky-1-normalize">Clear Sky 1: Normalize</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clear-sky-2-filter">Clear Sky 2: Filter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clear-sky-3-aggregate">Clear Sky 3: Aggregate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clear-sky-4-degradation-calculation">Clear Sky 4: Degradation Calculation</a></li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -428,56 +446,114 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="comparison-run">
-<h1>2 - Comparison Run<a class="headerlink" href="#comparison-run" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="running-rdtools-on-the-data">
+<h1>2 - Running RdTools on the data<a class="headerlink" href="#running-rdtools-on-the-data" title="Permalink to this heading">#</a></h1>
 <p><strong>Objectives:</strong></p>
 <ol class="arabic simple">
-<li><p>Read in necessary mass and energy data</p></li>
-<li><p>Run</p></li>
-<li><p>Generate plots</p></li>
+<li><p>Load the already downloaded data from tutorial 1</p></li>
+<li><p>Run an RdTools analysis</p></li>
 </ol>
-<section id="setup-and-create-pv-ice-simulation-object">
-<h2>1. Setup and Create PV ICE Simulation Object<a class="headerlink" href="#setup-and-create-pv-ice-simulation-object" title="Permalink to this heading">#</a></h2>
+<section id="setup">
+<h2>1. Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># if running on google colab, uncomment the next line and execute this cell to install the dependencies and prevent &quot;ModuleNotFoundError&quot; in later cells:</span>
-<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/NREL/PV_ICE.git@development
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>rdtools
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>https://raw.githubusercontent.com/NREL/rdtools/main/docs/notebook_requirements.txt
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>^C
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Running command git clone --filter=blob:none --quiet https://github.com/NREL/PV_ICE.git &#39;C:\Users\sayala\AppData\Local\Temp\1\pip-req-build-ctbuuqc5&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: rdtools in c:\users\sayala\appdata\roaming\python\python311\site-packages (2.1.5)
+Requirement already satisfied: matplotlib&gt;=3.0.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from rdtools) (3.7.2)
+Requirement already satisfied: numpy&gt;=1.15 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from rdtools) (1.24.4)
+Requirement already satisfied: pandas!=0.24.0,!=1.0.0,!=1.0.1,&gt;=0.23.2 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from rdtools) (2.1.0)
+Requirement already satisfied: statsmodels&gt;=0.9.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from rdtools) (0.14.0)
+Requirement already satisfied: scipy&gt;=1.1.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from rdtools) (1.11.1)
+Requirement already satisfied: h5py&gt;=2.8.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from rdtools) (3.9.0)
+Requirement already satisfied: plotly&gt;=4.0.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from rdtools) (5.15.0)
+Requirement already satisfied: xgboost&gt;=1.3.3 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from rdtools) (1.7.6)
+Requirement already satisfied: pvlib&lt;0.10.0,&gt;=0.7.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from rdtools) (0.9.5)
+Requirement already satisfied: scikit-learn&gt;=0.22.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from rdtools) (1.3.0)
+Requirement already satisfied: contourpy&gt;=1.0.1 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from matplotlib&gt;=3.0.0-&gt;rdtools) (1.1.0)
+Requirement already satisfied: cycler&gt;=0.10 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from matplotlib&gt;=3.0.0-&gt;rdtools) (0.11.0)
+Requirement already satisfied: fonttools&gt;=4.22.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from matplotlib&gt;=3.0.0-&gt;rdtools) (4.42.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from matplotlib&gt;=3.0.0-&gt;rdtools) (1.4.4)
+Requirement already satisfied: packaging&gt;=20.0 in c:\programdata\anaconda3\lib\site-packages (from matplotlib&gt;=3.0.0-&gt;rdtools) (23.0)
+Requirement already satisfied: pillow&gt;=6.2.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from matplotlib&gt;=3.0.0-&gt;rdtools) (10.0.0)
+Requirement already satisfied: pyparsing&lt;3.1,&gt;=2.3.1 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from matplotlib&gt;=3.0.0-&gt;rdtools) (3.0.9)
+Requirement already satisfied: python-dateutil&gt;=2.7 in c:\programdata\anaconda3\lib\site-packages (from matplotlib&gt;=3.0.0-&gt;rdtools) (2.8.2)
+Requirement already satisfied: pytz&gt;=2020.1 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from pandas!=0.24.0,!=1.0.0,!=1.0.1,&gt;=0.23.2-&gt;rdtools) (2023.3)
+Requirement already satisfied: tzdata&gt;=2022.1 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from pandas!=0.24.0,!=1.0.0,!=1.0.1,&gt;=0.23.2-&gt;rdtools) (2023.3)
+Requirement already satisfied: tenacity&gt;=6.2.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from plotly&gt;=4.0.0-&gt;rdtools) (8.2.2)
+Requirement already satisfied: requests in c:\users\sayala\appdata\roaming\python\python311\site-packages (from pvlib&lt;0.10.0,&gt;=0.7.0-&gt;rdtools) (2.31.0)
+Requirement already satisfied: joblib&gt;=1.1.1 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from scikit-learn&gt;=0.22.0-&gt;rdtools) (1.3.2)
+Requirement already satisfied: threadpoolctl&gt;=2.0.0 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from scikit-learn&gt;=0.22.0-&gt;rdtools) (3.2.0)
+Requirement already satisfied: patsy&gt;=0.5.2 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from statsmodels&gt;=0.9.0-&gt;rdtools) (0.5.3)
+Requirement already satisfied: six in c:\programdata\anaconda3\lib\site-packages (from patsy&gt;=0.5.2-&gt;statsmodels&gt;=0.9.0-&gt;rdtools) (1.16.0)
+Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in c:\users\sayala\appdata\roaming\python\python311\site-packages (from requests-&gt;pvlib&lt;0.10.0,&gt;=0.7.0-&gt;rdtools) (3.2.0)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in c:\programdata\anaconda3\lib\site-packages (from requests-&gt;pvlib&lt;0.10.0,&gt;=0.7.0-&gt;rdtools) (3.4)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in c:\programdata\anaconda3\lib\site-packages (from requests-&gt;pvlib&lt;0.10.0,&gt;=0.7.0-&gt;rdtools) (1.26.16)
+Requirement already satisfied: certifi&gt;=2017.4.17 in c:\programdata\anaconda3\lib\site-packages (from requests-&gt;pvlib&lt;0.10.0,&gt;=0.7.0-&gt;rdtools) (2023.7.22)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Defaulting to user installation because normal site-packages is not writeable
-Collecting git+https://github.com/NREL/PV_ICE.git@development
-  Cloning https://github.com/NREL/PV_ICE.git (to revision development) to c:\users\sayala\appdata\local\temp\1\pip-req-build-ctbuuqc5
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ERROR: 404 Client Error: Not Found for url: https://raw.githubusercontent.com/NREL/rdtools/main/docs/notebook_requirements.txt
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PV_ICE</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="n">PV_ICE</span><span class="o">.</span><span class="n">__version__</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pvanalytics</span>
+<span class="n">pvanalytics</span><span class="o">.</span><span class="n">__version__</span>
+<span class="kn">import</span> <span class="nn">pvlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>  <span class="c1"># this might not be needed as working on same directory as data here?</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<span class="kn">import</span> <span class="nn">rdtools</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\ProgramData\anaconda3\Lib\site-packages\paramiko\transport.py:219: CryptographyDeprecationWarning: Blowfish has been deprecated
+  &quot;class&quot;: algorithms.Blowfish,
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pvanalytics</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">pvanalytics</span><span class="o">.</span><span class="n">__version__</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pvlib</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">matplotlib</span>
+
+<span class="ne">AttributeError</span>: module &#39;pvanalytics&#39; has no attribute &#39;__version__&#39;
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pwd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This information helps with debugging and getting support :)</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">platform</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Working on a &quot;</span><span class="p">,</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">(),</span> <span class="n">platform</span><span class="o">.</span><span class="n">release</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python version &quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pandas version &quot;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PVlib version &quot;</span><span class="p">,</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rdtools version &quot;</span><span class="p">,</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">testfolder</span> <span class="o">=</span> <span class="s1">&#39;Second&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">testfolder</span> <span class="o">=</span> <span class="s1">&#39;Tuesday&#39;</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">testfolder</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">testfolder</span><span class="p">)</span>
@@ -487,147 +563,584 @@ Collecting git+https://github.com/NREL/PV_ICE.git@development
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span> <span class="o">=</span> <span class="n">PV_ICE</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Sim2&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">testfolder</span><span class="p">,</span> <span class="n">baselinepath</span><span class="o">=</span><span class="s1">&#39;/content&#39;</span><span class="p">);</span> <span class="c1"># Is it possible to define more than one simulation here?</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Update the style of plots</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+                           <span class="s1">&#39;figure.figsize&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">4.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+                           <span class="s1">&#39;lines.markeredgewidth&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                           <span class="s1">&#39;lines.markersize&#39;</span><span class="p">:</span> <span class="mi">2</span>
+                           <span class="p">})</span>
+<span class="c1"># Register time series plotting in pandas &gt; 1.0</span>
+<span class="kn">from</span> <span class="nn">pandas.plotting</span> <span class="kn">import</span> <span class="n">register_matplotlib_converters</span>
+<span class="n">register_matplotlib_converters</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set the random seed for numpy to ensure consistent results</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="modify-the-files-and-add-to-the-folder-now">
-<h2>2. Modify the files and add to the folder now<a class="headerlink" href="#modify-the-files-and-add-to-the-folder-now" title="Permalink to this heading">#</a></h2>
-<p>Let’s discuss as a group what would be a good scenario comparison to define.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#from google.colab import files</span>
-<span class="c1">#files.upload()</span>
-</pre></div>
-</div>
-</div>
-</div>
+<section id="load-data-and-run-rdtools">
+<h2>1. Load data and run RdTools<a class="headerlink" href="#load-data-and-run-rdtools" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="create-standard-and-modified-scenarios">
-<h2>3. Create standard and modified scenarios<a class="headerlink" href="#create-standard-and-modified-scenarios" title="Permalink to this heading">#</a></h2>
+<section id="degradation-and-soiling-example-with-clearsky-workflow">
+<h2>Degradation and soiling example with clearsky workflow<a class="headerlink" href="#degradation-and-soiling-example-with-clearsky-workflow" title="Permalink to this heading">#</a></h2>
+<p>The calculations consist of several steps illustrated here:</p>
+<ol start="0">
+  <li><b>Import and preliminary calculations</b></li>
+  <li><b>Normalize</b> data using a performance metric</li>
+  <li><b>Filter</b> data that creates bias</li>
+  <li><b>Aggregate data</b></li>
+  <li> <b>Analyze</b> aggregated data to estimate the degradation rate</li>
+  <li> <b>Analyze</b> aggregated data to estimate the soiling loss</li>
+</ol>
+<p>After demonstrating these steps using sensor data, a modified version of the workflow is illustrated using modled clear sky irradiance and temperature. The results from the two methods are compared</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="updte-this-to-pvdaq-data">
+<h1>UPDTE THIS TO PVDAQ DATA<a class="headerlink" href="#updte-this-to-pvdaq-data" title="Permalink to this heading">#</a></h1>
+<p>This notebook works with public data from the the Desert Knowledge Australia Solar Centre. Please download the site data from Site 12, and unzip the csv file in the folder:
+./rdtools/docs/</p>
+<p><a class="reference external" href="http://dkasolarcentre.com.au/download?location=alice-springs">http://dkasolarcentre.com.au/download?location=alice-springs</a></p>
+<section id="import-and-preliminary-calculations">
+<h2>0: Import and preliminary calculations<a class="headerlink" href="#import-and-preliminary-calculations" title="Permalink to this heading">#</a></h2>
+<p>This section prepares the data necesary for an <code class="docutils literal notranslate"><span class="pre">rdtools</span></code> calculation. The first step of the <code class="docutils literal notranslate"><span class="pre">rdtools</span></code> workflow is normaliztion, which requires a time series of energy yield, a time series of cell temperature, and a time series of irradiance, along with some metadata (see Step 1: Normalize)</p>
+<p>The following section loads the data, adjusts units where needed, and renames the critical columns. The irradiance sensor data source is transposed to plane-of-array, and the temperature sensor data source is converted into estimated cell temperature.</p>
+<p>A common challenge is handling datasets with and without daylight savings time. Make sure to specify a <code class="docutils literal notranslate"><span class="pre">pytz</span></code> timezone that does or does not include daylight savings time as appropriate for your dataset.</p>
+<p><b>The steps of this section may change depending on your data source or the system being considered. Note that nothing in this first section utlizes the <code class="docutils literal notranslate"><span class="pre">rdtools</span></code> library.</b> Transposition of irradiance and modeling of cell temperature are generally outside the scope of <code class="docutils literal notranslate"><span class="pre">rdtools</span></code>. A variety of tools for these calculations are avaialble in <a class="reference external" href="https://github.com/pvlib/pvlib-python">pvlib</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">createScenario</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">,</span> 
-                  <span class="n">massmodulefile</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;baseline_modules_mass_US.csv&#39;</span><span class="p">,</span> 
-                  <span class="n">energymodulefile</span> <span class="o">=</span> <span class="s1">&#39;baseline_modules_energy.csv&#39;</span> <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;84-Site_12-BP-Solar.csv&#39;</span>
 
-<span class="n">r1</span><span class="o">.</span><span class="n">scenario</span><span class="p">[</span><span class="s1">&#39;standard&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">addMaterial</span><span class="p">(</span><span class="n">materialname</span><span class="o">=</span><span class="s1">&#39;glass&#39;</span><span class="p">,</span> 
-                                    <span class="n">massmatfile</span><span class="o">=</span><span class="s1">&#39;/content/baseline_material_mass_glass.csv&#39;</span><span class="p">,</span> 
-                                    <span class="n">energymatfile</span><span class="o">=</span><span class="s1">&#39;/content/baseline_material_energy_glass.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+    <span class="k">pass</span>  <span class="c1"># Python 3 strings are already unicode literals</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sa">u</span><span class="s1">&#39;12 BP Solar - Active Power (kW)&#39;</span><span class="p">:</span><span class="s1">&#39;power&#39;</span><span class="p">,</span>
+    <span class="sa">u</span><span class="s1">&#39;12 BP Solar - Wind Speed (m/s)&#39;</span><span class="p">:</span> <span class="s1">&#39;wind_speed&#39;</span><span class="p">,</span>
+    <span class="sa">u</span><span class="s1">&#39;12 BP Solar - Weather Temperature Celsius (</span><span class="se">\xb0</span><span class="s1">C)&#39;</span><span class="p">:</span> <span class="s1">&#39;Tamb&#39;</span><span class="p">,</span>
+    <span class="sa">u</span><span class="s1">&#39;12 BP Solar - Global Horizontal Radiation (W/m</span><span class="se">\xb2</span><span class="s1">)&#39;</span><span class="p">:</span> <span class="s1">&#39;ghi&#39;</span><span class="p">,</span>
+    <span class="sa">u</span><span class="s1">&#39;12 BP Solar - Diffuse Horizontal Radiation (W/m</span><span class="se">\xb2</span><span class="s1">)&#39;</span><span class="p">:</span> <span class="s1">&#39;dhi&#39;</span>
+<span class="p">})</span>
 
-<span class="n">r1</span><span class="o">.</span><span class="n">scenario</span><span class="p">[</span><span class="s1">&#39;standard&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">addMaterial</span><span class="p">(</span><span class="n">materialname</span><span class="o">=</span><span class="s1">&#39;glass&#39;</span><span class="p">,</span> 
-                                    <span class="n">massmatfile</span><span class="o">=</span><span class="s1">&#39;/content/baseline_material_mass_glass.csv&#39;</span><span class="p">,</span> 
-                                    <span class="n">energymatfile</span><span class="o">=</span><span class="s1">&#39;/content/baseline_material_energy_glass.csv&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">createScenario</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;modified&#39;</span><span class="p">,</span> 
-                  <span class="n">massmodulefile</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;baseline_modules_mass_US_modified.csv&#39;</span><span class="p">,</span> 
-                  <span class="n">energymodulefile</span> <span class="o">=</span> <span class="s1">&#39;baseline_modules_energy.csv&#39;</span> <span class="p">)</span>
+<span class="c1"># Specify the Metadata</span>
+<span class="n">meta</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;latitude&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">23.762028</span><span class="p">,</span>
+        <span class="s2">&quot;longitude&quot;</span><span class="p">:</span> <span class="mf">133.874886</span><span class="p">,</span>
+        <span class="s2">&quot;timezone&quot;</span><span class="p">:</span> <span class="s1">&#39;Australia/North&#39;</span><span class="p">,</span>
+        <span class="s2">&quot;gamma_pdc&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.005</span><span class="p">,</span>
+        <span class="s2">&quot;azimuth&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;tilt&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="s2">&quot;power_dc_rated&quot;</span><span class="p">:</span> <span class="mf">5100.0</span><span class="p">,</span>
+        <span class="s2">&quot;temp_model_params&quot;</span><span class="p">:</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">temperature</span><span class="o">.</span><span class="n">TEMPERATURE_MODEL_PARAMETERS</span><span class="p">[</span><span class="s1">&#39;sapm&#39;</span><span class="p">][</span><span class="s1">&#39;open_rack_glass_polymer&#39;</span><span class="p">]}</span>
 
-<span class="n">r1</span><span class="o">.</span><span class="n">scenario</span><span class="p">[</span><span class="s1">&#39;modified&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">addMaterial</span><span class="p">(</span><span class="n">materialname</span><span class="o">=</span><span class="s1">&#39;glass&#39;</span><span class="p">,</span> 
-                                    <span class="n">massmatfile</span><span class="o">=</span><span class="s1">&#39;/content/baseline_material_mass_glass_modified.csv&#39;</span><span class="p">,</span> 
-                                    <span class="n">energymatfile</span><span class="o">=</span><span class="s1">&#39;/content/baseline_material_energy_glass.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">)</span>
+<span class="c1"># TZ is required for irradiance transposition</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;timezone&#39;</span><span class="p">],</span> <span class="n">ambiguous</span> <span class="o">=</span> <span class="s1">&#39;infer&#39;</span><span class="p">)</span> 
 
-<span class="n">r1</span><span class="o">.</span><span class="n">scenario</span><span class="p">[</span><span class="s1">&#39;modified&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">addMaterial</span><span class="p">(</span><span class="n">materialname</span><span class="o">=</span><span class="s1">&#39;silicon&#39;</span><span class="p">,</span> 
-                                    <span class="n">massmatfile</span><span class="o">=</span><span class="s1">&#39;/content/baseline_material_mass_glass_modified.csv&#39;</span><span class="p">,</span> 
-                                    <span class="n">energymatfile</span><span class="o">=</span><span class="s1">&#39;/content/baseline_material_energy_glass.csv&#39;</span><span class="p">)</span>
+<span class="c1"># Explicitly trim the dates so that runs of this example notebook </span>
+<span class="c1"># are comparable when the sourec dataset has been downloaded at different times</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;2008-11-11&#39;</span><span class="p">:</span><span class="s1">&#39;2017-05-15&#39;</span><span class="p">]</span>
+
+<span class="c1"># Chage power from kilowatts to watts</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;power&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">power</span> <span class="o">*</span> <span class="mf">1000.0</span>
+
+<span class="c1"># There is some missing data, but we can infer the frequency from the first several data points</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">infer_freq</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+
+<span class="c1"># Then set the frequency of the dataframe.</span>
+<span class="c1"># It is reccomended not to up- or downsample at this step</span>
+<span class="c1"># but rather to use interpolate to regularize the time series</span>
+<span class="c1"># to it&#39;s dominant or underlying frequency. Interpolate is not</span>
+<span class="c1"># generally recomended for downsampleing in this applicaiton.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">freq</span><span class="p">)</span>
+
+<span class="c1"># Calculate energy yield in Wh</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;energy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">energy_from_power</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">power</span><span class="p">)</span>
+
+<span class="c1"># Calculate POA irradiance from DHI, GHI inputs</span>
+<span class="n">loc</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">],</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">tz</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;timezone&#39;</span><span class="p">])</span>
+<span class="n">sun</span> <span class="o">=</span> <span class="n">loc</span><span class="o">.</span><span class="n">get_solarposition</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="c1"># calculate the POA irradiance</span>
+<span class="n">sky</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">irradiance</span><span class="o">.</span><span class="n">isotropic</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;tilt&#39;</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">dhi</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;dni&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">ghi</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">dhi</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">sun</span><span class="o">.</span><span class="n">zenith</span><span class="p">))</span>
+<span class="n">beam</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">irradiance</span><span class="o">.</span><span class="n">beam_component</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;tilt&#39;</span><span class="p">],</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;azimuth&#39;</span><span class="p">],</span> <span class="n">sun</span><span class="o">.</span><span class="n">zenith</span><span class="p">,</span> <span class="n">sun</span><span class="o">.</span><span class="n">azimuth</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">dni</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;poa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">beam</span> <span class="o">+</span> <span class="n">sky</span>
+
+<span class="c1"># Calculate cell temperature</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Tcell&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">temperature</span><span class="o">.</span><span class="n">sapm_cell</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">poa</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">Tamb</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">wind_speed</span><span class="p">,</span> <span class="o">**</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;temp_model_params&#39;</span><span class="p">])</span>
+
+<span class="c1"># plot the AC power time series</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">power</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">7000</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">autofmt_xdate</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;AC Power (W)&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-</div>
-<p>Alternatively, use one of the PV_ICE support functions to modify</p>
-<ul class="simple">
-<li><p>modifyScenario</p></li>
-<li><p>modifyScenario Energy</p></li>
-</ul>
-<p>or</p>
-<ul class="simple">
-<li><p>scenMod_PerfectManufacturing</p></li>
-<li><p>scenMod_noCircularity</p></li>
-<li><p>scenMod_perfectRecycling</p></li>
-<li><p>scenMod_IRENIFY</p></li>
-</ul>
-</section>
-<section id="run-the-flows">
-<h2>4. Run the flows<a class="headerlink" href="#run-the-flows" title="Permalink to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">calculateFlows</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="aggregate-results">
-<h2>5. Aggregate Results<a class="headerlink" href="#aggregate-results" title="Permalink to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">USyearly</span><span class="p">,</span> <span class="n">UScum</span> <span class="o">=</span> <span class="n">r1</span><span class="o">.</span><span class="n">aggregateResults</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="save-simulation">
-<h2>6. Save Simulation<a class="headerlink" href="#save-simulation" title="Permalink to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">saveSimulation</span><span class="p">()</span>
-</pre></div>
-</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7e33ba7e3d9856f98c12c0f9069c03579e2ef3a53d114469f378d75b8f88d078.png" src="../_images/7e33ba7e3d9856f98c12c0f9069c03579e2ef3a53d114469f378d75b8f88d078.png" />
 </div>
 </div>
 </section>
-<section id="use-internal-plotting-functions-to-plot-results">
-<h2>7. Use internal plotting functions to plot results<a class="headerlink" href="#use-internal-plotting-functions-to-plot-results" title="Permalink to this heading">#</a></h2>
-<p>From this list, select the one that fits your study and select the type of plotting method. There are various plotting options:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">plotScenariosComparison</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plotMaterialComparisonAcrossScenarios</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plotMetricResults</span></code>: You can select the following keyword options: ‘VirginStock’, ‘WasteALL’, ‘WasteEOL’, ‘WasteMFG’</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plotMaterialResults</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">plotInstalledCapacityResults</span></code></p></li>
-</ul>
-<p>You can also view all the keywords you can use by calling the function without argumnets, or by printing the keys to the module data or the material data</p>
+<section id="normalize">
+<h2>1: Normalize<a class="headerlink" href="#normalize" title="Permalink to this heading">#</a></h2>
+<p>Data normalization is achieved with <code class="docutils literal notranslate"><span class="pre">rdtools.normalize_with_pvwatts()</span></code>. We provide a time sereis of energy, along with keywords used to run a pvwatts model of the system. More information available in the docstring.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">plotMetricResults</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify the keywords for the pvwatts model</span>
+<span class="n">pvwatts_kws</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;poa_global&quot;</span> <span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">poa</span><span class="p">,</span>
+              <span class="s2">&quot;power_dc_rated&quot;</span> <span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;power_dc_rated&#39;</span><span class="p">],</span>
+              <span class="s2">&quot;temperature_cell&quot;</span> <span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">Tcell</span><span class="p">,</span>
+              <span class="s2">&quot;poa_global_ref&quot;</span> <span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+              <span class="s2">&quot;temperature_cell_ref&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+              <span class="s2">&quot;gamma_pdc&quot;</span> <span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;gamma_pdc&#39;</span><span class="p">]}</span>
+
+<span class="c1"># Calculate the normaliztion, the function also returns the relevant insolation for</span>
+<span class="c1"># each point in the normalized PV energy timeseries</span>
+<span class="n">normalized</span><span class="p">,</span> <span class="n">insolation</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">normalize_with_pvwatts</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">energy</span><span class="p">,</span> <span class="n">pvwatts_kws</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;normalized&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">normalized</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;insolation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">insolation</span>
+
+<span class="c1"># Plot the normalized power time series</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">normalized</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">normalized</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">autofmt_xdate</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Normalized energy&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/32332639da98081e2d7e4b0c5e1acead2291b2d2b7de29d2c9f3131c021d87e8.png" src="../_images/32332639da98081e2d7e4b0c5e1acead2291b2d2b7de29d2c9f3131c021d87e8.png" />
+</div>
+</div>
+</section>
+<section id="filter">
+<h2>2: Filter<a class="headerlink" href="#filter" title="Permalink to this heading">#</a></h2>
+<p>Data filtering is used to exclude data points that represent invalid data, create bias in the analysis, or introduce significant noise.</p>
+<p>It can also be useful to remove outages and outliers. Sometimes outages appear as low but non-zero yield. Automatic functions for this are not yet included in <code class="docutils literal notranslate"><span class="pre">rdtools</span></code>. Such filters should be implimented by the analyst if needed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate a collection of boolean masks that can be used</span>
+<span class="c1"># to filter the time series</span>
+<span class="n">normalized_mask</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">normalized_filter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;normalized&#39;</span><span class="p">])</span>
+<span class="n">poa_mask</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">poa_filter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;poa&#39;</span><span class="p">])</span>
+<span class="n">tcell_mask</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">tcell_filter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Tcell&#39;</span><span class="p">])</span>
+<span class="n">clip_mask</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">clip_filter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;power&#39;</span><span class="p">])</span>
+
+<span class="c1"># filter the time series and keep only the columns needed for the</span>
+<span class="c1"># remaining steps</span>
+<span class="n">filtered</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">normalized_mask</span> <span class="o">&amp;</span> <span class="n">poa_mask</span> <span class="o">&amp;</span> <span class="n">tcell_mask</span> <span class="o">&amp;</span> <span class="n">clip_mask</span><span class="p">]</span>
+<span class="n">filtered</span> <span class="o">=</span> <span class="n">filtered</span><span class="p">[[</span><span class="s1">&#39;insolation&#39;</span><span class="p">,</span> <span class="s1">&#39;normalized&#39;</span><span class="p">]]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">filtered</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">filtered</span><span class="o">.</span><span class="n">normalized</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">autofmt_xdate</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Normalized energy&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/a1c4c74015e83afcc8c415f0ccfdca22ca851a51e62ad93c20b678c427bcf551.png" src="../_images/a1c4c74015e83afcc8c415f0ccfdca22ca851a51e62ad93c20b678c427bcf551.png" />
+</div>
+</div>
+</section>
+<section id="aggregate">
+<h2>3: Aggregate<a class="headerlink" href="#aggregate" title="Permalink to this heading">#</a></h2>
+<p>Data is aggregated with an irradiance weighted average. This can be useful, for example with daily aggregation, to reduce the impact of high-error data points in the morning and evening.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">daily</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">aggregation_insol</span><span class="p">(</span><span class="n">filtered</span><span class="o">.</span><span class="n">normalized</span><span class="p">,</span> <span class="n">filtered</span><span class="o">.</span><span class="n">insolation</span><span class="p">,</span> <span class="n">frequency</span> <span class="o">=</span> <span class="s1">&#39;D&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">daily</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">daily</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">autofmt_xdate</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Normalized energy&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/41f0daaa8a1686fc347971490678e8a864b62aa3cc4ab7c70ef7c1abedcdc2bd.png" src="../_images/41f0daaa8a1686fc347971490678e8a864b62aa3cc4ab7c70ef7c1abedcdc2bd.png" />
+</div>
+</div>
+</section>
+<section id="degradation-calculation">
+<h2>4: Degradation calculation<a class="headerlink" href="#degradation-calculation" title="Permalink to this heading">#</a></h2>
+<p>Data is then analyzed to estimate the degradation rate representing the PV system behavior. The results are visualized and statistics are reported, including the 68.2% confidence interval, and the P95 exceedence value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the degradation rate using the YoY method</span>
+<span class="n">yoy_rd</span><span class="p">,</span> <span class="n">yoy_ci</span><span class="p">,</span> <span class="n">yoy_info</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">degradation_year_on_year</span><span class="p">(</span><span class="n">daily</span><span class="p">,</span> <span class="n">confidence_level</span><span class="o">=</span><span class="mf">68.2</span><span class="p">)</span>
+<span class="c1"># Note the default confidence_level of 68.2 is approrpriate if you would like to </span>
+<span class="c1"># report a confidence interval analogous to the standard deviation of a normal</span>
+<span class="c1"># distribution. The size of the confidence interval is adjustable by setting the</span>
+<span class="c1"># confidence_level variable.</span>
+
+<span class="c1"># Visualize the results</span>
+
+<span class="n">degradation_fig</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">degradation_summary_plots</span><span class="p">(</span><span class="n">yoy_rd</span><span class="p">,</span> <span class="n">yoy_ci</span><span class="p">,</span> <span class="n">yoy_info</span><span class="p">,</span> <span class="n">daily</span><span class="p">,</span>
+                                                    <span class="n">summary_title</span><span class="o">=</span><span class="s1">&#39;Sensor-based degradation results&#39;</span><span class="p">,</span>
+                                                    <span class="n">scatter_ymin</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">scatter_ymax</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+                                                    <span class="n">hist_xmin</span><span class="o">=-</span><span class="mi">30</span><span class="p">,</span> <span class="n">hist_xmax</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ec4758f43106d37d52e22bda424018d89353ff00ee44955987ceafbe2595a80f.png" src="../_images/ec4758f43106d37d52e22bda424018d89353ff00ee44955987ceafbe2595a80f.png" />
+</div>
+</div>
+<p>In addition to the confidence interval, the year-on-year method yields an exceedence value (e.g. P95), the degradation rate that was exceeded (slower degradation) with a given probability level. The probability level is set via the <code class="docutils literal notranslate"><span class="pre">exceedence_prob</span></code> keyword in <code class="docutils literal notranslate"><span class="pre">degradation_year_on_year</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The P95 exceedance level is </span><span class="si">%.2f%%</span><span class="s1">/yr&#39;</span> <span class="o">%</span> <span class="n">yoy_info</span><span class="p">[</span><span class="s1">&#39;exceedance_level&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The P95 exceedance level is -0.59%/yr
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="soiling-calculations">
+<h2>5: Soiling calculations<a class="headerlink" href="#soiling-calculations" title="Permalink to this heading">#</a></h2>
+<p>This section illustrates how the aggreagated data can be used to estimate soiling losses using the stochastic rate and recovery (SRR) method.<sup>1</sup></p>
+<p><sup>1</sup>M. G. Deceglie, L. Micheli and M. Muller, “Quantifying Soiling Loss Directly From PV Yield,” IEEE Journal of Photovoltaics, vol. 8, no. 2, pp. 547-551, March 2018. doi: 10.1109/JPHOTOV.2017.2784682</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the daily insolation, required for the SRR calculation</span>
+<span class="n">daily_insolation</span> <span class="o">=</span> <span class="n">filtered</span><span class="p">[</span><span class="s1">&#39;insolation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="c1"># Perform the SRR calculation</span>
+<span class="kn">from</span> <span class="nn">rdtools.soiling</span> <span class="kn">import</span> <span class="n">soiling_srr</span>
+<span class="n">cl</span> <span class="o">=</span> <span class="mf">68.2</span>
+<span class="n">sr</span><span class="p">,</span> <span class="n">sr_ci</span><span class="p">,</span> <span class="n">soiling_info</span> <span class="o">=</span> <span class="n">soiling_srr</span><span class="p">(</span><span class="n">daily</span><span class="p">,</span> <span class="n">daily_insolation</span><span class="p">,</span> <span class="n">confidence_level</span><span class="o">=</span><span class="n">cl</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/mdecegli/opt/anaconda3/envs/tempY/lib/python3.10/site-packages/rdtools/soiling.py:14: UserWarning: The soiling module is currently experimental. The API, results, and default behaviors may change in future releases (including MINOR and PATCH releases) as the code matures.
+  warnings.warn(
+/Users/mdecegli/opt/anaconda3/envs/tempY/lib/python3.10/site-packages/rdtools/soiling.py:366: UserWarning: 20% or more of the daily data is assigned to invalid soiling intervals. This can be problematic with the &quot;half_norm_clean&quot; and &quot;random_clean&quot; cleaning assumptions. Consider more permissive validity criteria such as increasing &quot;max_relative_slope_error&quot; and/or &quot;max_negative_step&quot; and/or decreasing &quot;min_interval_length&quot;. Alternatively, consider using method=&quot;perfect_clean&quot;. For more info see https://github.com/NREL/rdtools/issues/272
+  warnings.warn(&#39;20% or more of the daily data is assigned to invalid soiling &#39;
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">plotScenariosComparison</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The P50 insolation-weighted soiling ratio is </span><span class="si">%0.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="k">sr</span>)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The P50 insolation-weighted soiling ratio is 0.975
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">plotMaterialComparisonAcrossScenarios</span><span class="p">(</span><span class="n">material</span><span class="o">=</span><span class="s1">&#39;silicon&#39;</span><span class="p">,</span> <span class="n">keyword</span><span class="o">=</span><span class="s1">&#39;mat_virgin_eff&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The </span><span class="si">%0.1f</span><span class="s1"> confidence interval for the insolation-weighted&#39;</span>
+      <span class="s1">&#39; soiling ratio is </span><span class="si">%0.3f</span><span class="s1">–</span><span class="si">%0.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">cl</span><span class="p">,</span> <span class="n">sr_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sr_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The 68.2 confidence interval for the insolation-weighted soiling ratio is 0.972–0.978
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">plotMaterialResults</span><span class="p">(</span><span class="n">keyword</span><span class="o">=</span><span class="s1">&#39;VirginStock&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot Monte Carlo realizations of soiling profiles</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">soiling_monte_carlo_plot</span><span class="p">(</span><span class="n">soiling_info</span><span class="p">,</span> <span class="n">daily</span><span class="p">,</span> <span class="n">profiles</span><span class="o">=</span><span class="mi">200</span><span class="p">);</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/mdecegli/opt/anaconda3/envs/tempY/lib/python3.10/site-packages/rdtools/plotting.py:165: UserWarning: The soiling module is currently experimental. The API, results, and default behaviors may change in future releases (including MINOR and PATCH releases) as the code matures.
+  warnings.warn(
+</pre></div>
+</div>
+<img alt="../_images/c1e0997969c695c9b12db68b41cf0b8b48bc51a6e09808b80b21d65cef25c01d.png" src="../_images/c1e0997969c695c9b12db68b41cf0b8b48bc51a6e09808b80b21d65cef25c01d.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span><span class="o">.</span><span class="n">plotInstalledCapacityResults</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the slopes for &quot;valid&quot; soiling intervals identified,</span>
+<span class="c1"># assuming perfect cleaning events</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">soiling_interval_plot</span><span class="p">(</span><span class="n">soiling_info</span><span class="p">,</span> <span class="n">daily</span><span class="p">);</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/mdecegli/opt/anaconda3/envs/tempY/lib/python3.10/site-packages/rdtools/plotting.py:225: UserWarning: The soiling module is currently experimental. The API, results, and default behaviors may change in future releases (including MINOR and PATCH releases) as the code matures.
+  warnings.warn(
+</pre></div>
+</div>
+<img alt="../_images/c08c6c9932a17071076b9bca4d48b90475fcd0503e5bc031aafa9b8ed92c00a4.png" src="../_images/c08c6c9932a17071076b9bca4d48b90475fcd0503e5bc031aafa9b8ed92c00a4.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># View the first several rows of the soiling interval summary table</span>
+<span class="n">soiling_summary</span> <span class="o">=</span> <span class="n">soiling_info</span><span class="p">[</span><span class="s1">&#39;soiling_interval_summary&#39;</span><span class="p">]</span>
+<span class="n">soiling_summary</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>start</th>
+      <th>end</th>
+      <th>soiling_rate</th>
+      <th>soiling_rate_low</th>
+      <th>soiling_rate_high</th>
+      <th>inferred_start_loss</th>
+      <th>inferred_end_loss</th>
+      <th>length</th>
+      <th>valid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2008-11-13 00:00:00+09:30</td>
+      <td>2009-01-31 00:00:00+09:30</td>
+      <td>-0.000347</td>
+      <td>-0.000637</td>
+      <td>-0.000037</td>
+      <td>1.003580</td>
+      <td>0.976134</td>
+      <td>79</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2009-02-01 00:00:00+09:30</td>
+      <td>2009-03-22 00:00:00+09:30</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.970406</td>
+      <td>1.007741</td>
+      <td>49</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2009-03-23 00:00:00+09:30</td>
+      <td>2009-03-23 00:00:00+09:30</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.991140</td>
+      <td>0.991140</td>
+      <td>0</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2009-03-24 00:00:00+09:30</td>
+      <td>2009-04-08 00:00:00+09:30</td>
+      <td>-0.001981</td>
+      <td>-0.003316</td>
+      <td>-0.000614</td>
+      <td>1.045116</td>
+      <td>1.015397</td>
+      <td>15</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2009-04-09 00:00:00+09:30</td>
+      <td>2009-04-22 00:00:00+09:30</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1.008723</td>
+      <td>1.037279</td>
+      <td>13</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># View a histogram of the valid soiling rates found for the data set</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">soiling_rate_histogram</span><span class="p">(</span><span class="n">soiling_info</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/mdecegli/opt/anaconda3/envs/tempY/lib/python3.10/site-packages/rdtools/plotting.py:265: UserWarning: The soiling module is currently experimental. The API, results, and default behaviors may change in future releases (including MINOR and PATCH releases) as the code matures.
+  warnings.warn(
+</pre></div>
+</div>
+<img alt="../_images/6a44882c20399b2e1d8b11c6e88fe566e766e9550d4bbe702ca896ac32a16ce0.png" src="../_images/6a44882c20399b2e1d8b11c6e88fe566e766e9550d4bbe702ca896ac32a16ce0.png" />
+</div>
+</div>
+</section>
+<section id="clear-sky-workflow">
+<h2>Clear sky workflow<a class="headerlink" href="#clear-sky-workflow" title="Permalink to this heading">#</a></h2>
+<p>The clear sky workflow is useful in that it avoids problems due to drift or recalibration of ground-based sensors. We use <code class="docutils literal notranslate"><span class="pre">pvlib</span></code> to model the clear sky irradiance. This is renormalized to align it with ground-based measurements. Finally we use <code class="docutils literal notranslate"><span class="pre">rdtools.get_clearsky_tamb()</span></code> to model the ambient temperature on clear sky days. This modeled ambient temperature is used to model cell temperature with <code class="docutils literal notranslate"><span class="pre">pvlib</span></code>. If high quality amabient temperature data is available, that can be used instead of the modeled ambient; we proceed with the modeled ambient temperature here for illustrative purposes.</p>
+<p>In this example, note that we have omitted wind data in the cell temperature calculations for illustrative purposes. Wind data can also be included when the data source is trusted for improved results</p>
+<p><strong>Note that the claculations below rely on some objects from the steps above</strong></p>
+</section>
+<section id="clear-sky-0-preliminary-calculations">
+<h2>Clear Sky 0: Preliminary Calculations<a class="headerlink" href="#clear-sky-0-preliminary-calculations" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the clear sky POA irradiance</span>
+<span class="c1"># Note: an earlier version of this notebook modeled clear-sky POA irradiance as</span>
+<span class="c1"># instantaneous values rather than interval averages.  See https://github.com/NREL/rdtools/issues/243</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;1min&#39;</span><span class="p">)</span>
+<span class="n">sun1min</span> <span class="o">=</span> <span class="n">loc</span><span class="o">.</span><span class="n">get_solarposition</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+<span class="n">clearsky</span> <span class="o">=</span> <span class="n">loc</span><span class="o">.</span><span class="n">get_clearsky</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">solar_position</span><span class="o">=</span><span class="n">sun1min</span><span class="p">)</span>
+<span class="c1"># Note: An earlier version of this notebook used pvlib&lt;0.6. In pvlib 0.6, the default </span>
+<span class="c1"># behavior of get_clearsky() changed, which affects the results of this example notebook.</span>
+<span class="c1"># More details: https://github.com/pvlib/pvlib-python/issues/435</span>
+<span class="n">cs_sky</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">irradiance</span><span class="o">.</span><span class="n">isotropic</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;tilt&#39;</span><span class="p">],</span> <span class="n">clearsky</span><span class="o">.</span><span class="n">dhi</span><span class="p">)</span>
+<span class="n">cs_beam</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">irradiance</span><span class="o">.</span><span class="n">beam_component</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;tilt&#39;</span><span class="p">],</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;azimuth&#39;</span><span class="p">],</span> <span class="n">sun1min</span><span class="o">.</span><span class="n">zenith</span><span class="p">,</span> <span class="n">sun1min</span><span class="o">.</span><span class="n">azimuth</span><span class="p">,</span> <span class="n">clearsky</span><span class="o">.</span><span class="n">dni</span><span class="p">)</span>
+<span class="n">cs_total</span> <span class="o">=</span> <span class="n">cs_beam</span> <span class="o">+</span> <span class="n">cs_sky</span>
+<span class="c1"># aggregate 1-minute model to the resolution of the measured data:</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;clearsky_poa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cs_total</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># Renormalize the clear sky POA irradiance</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;clearsky_poa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">irradiance_rescale</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">poa</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">clearsky_poa</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iterative&#39;</span><span class="p">)</span>
+
+<span class="c1"># Calculate the clearsky temperature</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;clearsky_Tamb&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">get_clearsky_tamb</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">],</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;clearsky_Tcell&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pvlib</span><span class="o">.</span><span class="n">temperature</span><span class="o">.</span><span class="n">sapm_cell</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">clearsky_poa</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">clearsky_Tamb</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;temp_model_params&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="clear-sky-1-normalize">
+<h2>Clear Sky 1: Normalize<a class="headerlink" href="#clear-sky-1-normalize" title="Permalink to this heading">#</a></h2>
+<p>Normalize as in step 1 above, but this time using clearsky modeled irradiance and cell temperature</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clearsky_pvwatts_kws</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;poa_global&quot;</span> <span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">clearsky_poa</span><span class="p">,</span>
+              <span class="s2">&quot;power_dc_rated&quot;</span> <span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;power_dc_rated&#39;</span><span class="p">],</span>
+              <span class="s2">&quot;temperature_cell&quot;</span> <span class="p">:</span><span class="n">df</span><span class="o">.</span><span class="n">clearsky_Tcell</span><span class="p">,</span>
+              <span class="s2">&quot;poa_global_ref&quot;</span> <span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+              <span class="s2">&quot;temperature_cell_ref&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+              <span class="s2">&quot;gamma_pdc&quot;</span> <span class="p">:</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;gamma_pdc&#39;</span><span class="p">]}</span>
+
+<span class="n">clearsky_normalized</span><span class="p">,</span> <span class="n">clearsky_insolation</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">normalize_with_pvwatts</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">energy</span><span class="p">,</span> <span class="n">clearsky_pvwatts_kws</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;clearsky_normalized&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clearsky_normalized</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;clearsky_insolation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clearsky_insolation</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="clear-sky-2-filter">
+<h2>Clear Sky 2: Filter<a class="headerlink" href="#clear-sky-2-filter" title="Permalink to this heading">#</a></h2>
+<p>Filter as in step 2 above, but with the addition of a clear sky index (csi) filter so we consider only points well modeled by the clear sky irradiance model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Perform clearsky filter</span>
+<span class="n">cs_normalized_mask</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">normalized_filter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;clearsky_normalized&#39;</span><span class="p">])</span>
+<span class="n">cs_poa_mask</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">poa_filter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;clearsky_poa&#39;</span><span class="p">])</span>
+<span class="n">cs_tcell_mask</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">tcell_filter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;clearsky_Tcell&#39;</span><span class="p">])</span>
+
+<span class="n">csi_mask</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">csi_filter</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">insolation</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">clearsky_insolation</span><span class="p">)</span>
+
+
+<span class="n">clearsky_filtered</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">cs_normalized_mask</span> <span class="o">&amp;</span> <span class="n">cs_poa_mask</span> <span class="o">&amp;</span> <span class="n">cs_tcell_mask</span> <span class="o">&amp;</span> <span class="n">clip_mask</span> <span class="o">&amp;</span> <span class="n">csi_mask</span><span class="p">]</span>
+<span class="n">clearsky_filtered</span> <span class="o">=</span> <span class="n">clearsky_filtered</span><span class="p">[[</span><span class="s1">&#39;clearsky_insolation&#39;</span><span class="p">,</span> <span class="s1">&#39;clearsky_normalized&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="clear-sky-3-aggregate">
+<h2>Clear Sky 3: Aggregate<a class="headerlink" href="#clear-sky-3-aggregate" title="Permalink to this heading">#</a></h2>
+<p>Aggregate the clear sky version of of the filtered data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clearsky_daily</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">aggregation_insol</span><span class="p">(</span><span class="n">clearsky_filtered</span><span class="o">.</span><span class="n">clearsky_normalized</span><span class="p">,</span> <span class="n">clearsky_filtered</span><span class="o">.</span><span class="n">clearsky_insolation</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="clear-sky-4-degradation-calculation">
+<h2>Clear Sky 4: Degradation Calculation<a class="headerlink" href="#clear-sky-4-degradation-calculation" title="Permalink to this heading">#</a></h2>
+<p>Estimate the degradation rate and compare to the results obtained with sensors. In this case, we see that irradiance sensor drift may have biased the sensor-based results, a problem that is corrected by the clear sky approach.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the degradation rate using the YoY method</span>
+<span class="n">cs_yoy_rd</span><span class="p">,</span> <span class="n">cs_yoy_ci</span><span class="p">,</span> <span class="n">cs_yoy_info</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">degradation_year_on_year</span><span class="p">(</span><span class="n">clearsky_daily</span><span class="p">,</span> <span class="n">confidence_level</span><span class="o">=</span><span class="mf">68.2</span><span class="p">)</span>
+<span class="c1"># Note the default confidence_level of 68.2 is approrpriate if you would like to </span>
+<span class="c1"># report a confidence interval analogous to the standard deviation of a normal</span>
+<span class="c1"># distribution. The size of the confidence interval is adjustable by setting the</span>
+<span class="c1"># confidence_level variable.</span>
+
+<span class="c1"># Visualize the results</span>
+<span class="n">clearsky_fig</span> <span class="o">=</span> <span class="n">rdtools</span><span class="o">.</span><span class="n">degradation_summary_plots</span><span class="p">(</span><span class="n">cs_yoy_rd</span><span class="p">,</span> <span class="n">cs_yoy_ci</span><span class="p">,</span> <span class="n">cs_yoy_info</span><span class="p">,</span> <span class="n">clearsky_daily</span><span class="p">,</span>
+                                                    <span class="n">summary_title</span><span class="o">=</span><span class="s1">&#39;Clear-sky-based degradation results&#39;</span><span class="p">,</span>
+                                                    <span class="n">scatter_ymin</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">scatter_ymax</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+                                                    <span class="n">hist_xmin</span><span class="o">=-</span><span class="mi">30</span><span class="p">,</span> <span class="n">hist_xmax</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">plot_color</span><span class="o">=</span><span class="s1">&#39;orangered&#39;</span><span class="p">);</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The P95 exceedance level with the clear sky analysis is </span><span class="si">%.2f%%</span><span class="s1">/yr&#39;</span> <span class="o">%</span> <span class="n">cs_yoy_info</span><span class="p">[</span><span class="s1">&#39;exceedance_level&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The P95 exceedance level with the clear sky analysis is -0.22%/yr
+</pre></div>
+</div>
+<img alt="../_images/a32fb632ec4bbcd060258c3657d9c95408da42dd349ddc4ae2dbb33b9193906d.png" src="../_images/a32fb632ec4bbcd060258c3657d9c95408da42dd349ddc4ae2dbb33b9193906d.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compare to previous sensor restuls</span>
+<span class="n">degradation_fig</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ec4758f43106d37d52e22bda424018d89353ff00ee44955987ceafbe2595a80f.png" src="../_images/ec4758f43106d37d52e22bda424018d89353ff00ee44955987ceafbe2595a80f.png" />
 </div>
 </div>
 </section>
@@ -669,7 +1182,7 @@ Collecting git+https://github.com/NREL/PV_ICE.git@development
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">1 - Basics run</p>
+        <p class="prev-next-title">1 - Downloading Data, and doing a Quality Assessment</p>
       </div>
     </a>
 </div>
@@ -687,14 +1200,29 @@ Collecting git+https://github.com/NREL/PV_ICE.git@development
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-create-pv-ice-simulation-object">1. Setup and Create PV ICE Simulation Object</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modify-the-files-and-add-to-the-folder-now">2. Modify the files and add to the folder now</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-standard-and-modified-scenarios">3. Create standard and modified scenarios</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-flows">4. Run the flows</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate-results">5. Aggregate Results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-simulation">6. Save Simulation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-internal-plotting-functions-to-plot-results">7. Use internal plotting functions to plot results</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">2 - Running RdTools on the data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">1. Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data-and-run-rdtools">1. Load data and run RdTools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#degradation-and-soiling-example-with-clearsky-workflow">Degradation and soiling example with clearsky workflow</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#updte-this-to-pvdaq-data">UPDTE THIS TO PVDAQ DATA</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-and-preliminary-calculations">0: Import and preliminary calculations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalize">1: Normalize</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter">2: Filter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate">3: Aggregate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#degradation-calculation">4: Degradation calculation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soiling-calculations">5: Soiling calculations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clear-sky-workflow">Clear sky workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clear-sky-0-preliminary-calculations">Clear Sky 0: Preliminary Calculations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clear-sky-1-normalize">Clear Sky 1: Normalize</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clear-sky-2-filter">Clear Sky 2: Filter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clear-sky-3-aggregate">Clear Sky 3: Aggregate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clear-sky-4-degradation-calculation">Clear Sky 4: Degradation Calculation</a></li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
