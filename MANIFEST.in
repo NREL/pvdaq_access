@@ -1,0 +1,2 @@
+include versioneer.py
+include pvdaq_access/_version.py
