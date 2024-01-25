@@ -133,3 +133,38 @@ def concatenateData(system_id, path):
     print ("File is " + target_outputfile)
     df.to_csv(target_outputfile, sep=",", index=False)
     return
+
+
+#---------------------------------------------------------------------------   
+#---------------------------------------------------------------------------   
+if __name__ == '__main__':
+    print (" ..: Starting data access script for PVDAQ OEDI datasets :..")
+    
+    #Get parameters from command line
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-system', type=str,  help="Target system ID")
+    parser.add_argument('-path', type=str,  help="Location to store files locally")
+    parser.add_argument('-parquet', help="Access parquet files (default is .csv)", action="store_true")
+    args = parser.parse_args()
+    
+    if args.system:
+        input_string = input("Are you accessing data from the DOE Solar Data Bounty Prize: (Y/N): ")
+        #Handle Solar Data Bounty Prize archives
+        if input_string.lower() == 'y':
+            downloadSolarPrizeData(args.system, args.path, file_type='csv')
+            quit()
+        
+        else:   #Normal PVDAQ archives
+            if args.parquet:
+                downloadData(args.system, args.path, file_type='parquet')
+            else:
+                downloadData(args.system, args.path)
+                #Create single file from data
+                input_string = input("Do you wish to concatenate the files (Y/N): ") 
+                if input_string.lower() == 'y':
+                    concatenateData(args.system, args.path)
+    else:
+        print('Missing system_id, Exiting.')
+    
+    quit()
+    
