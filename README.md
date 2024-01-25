@@ -1,6 +1,7 @@
 
 # pvdaq_access
-A program to facilitate the download of a system's data from the OEDI website for public NREL PVDAQ Data.
+A program to facilitate the download of a system's data from the OEDI website for public NREL PVDAQ Data.</br>
+Detailed documentaion is found in [pvdaq_access Pages][3]
 
 ## Overview
 Data from public PV Sites is available through the [OEDI Data Lake][1]. This data is refreshed monthly where possible, and is stored in daily CSV or Parquet files for each system. This softeware module will allow a user to downlaod all the data to their local system from the OEDI Data Lake.
@@ -36,3 +37,4 @@ you could be downloading hundreds of gigabytes of data. Plan accordingly.
 
 [1]:https://data.openei.org/submissions/4568
 [2]:https://openei.org/wiki/PVDAQ
+[3]:https://nrel.github.io/pvdaq_access/
