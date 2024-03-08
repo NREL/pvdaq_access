@@ -23,7 +23,7 @@ bibtex_bibfiles:
 repository:
   url: https://github.com/NREL/pvdaq_access
   path_to_book: training  # Optional path to your book, relative to the repository root
-  branch: development
+  branch: main
 
 # Add GitHub buttons to your book
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
