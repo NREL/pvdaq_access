@@ -27,8 +27,8 @@ steps:
    this tutorial. To install them using conda run:
 
    ```
-   conda create -n pv_ice jupyter -c conda-forge --file requirements.txt
-   conda activate pv_ice
+   conda create -n pvdaq jupyter -c conda-forge --file requirements.txt
+   conda activate pvdaq
    ```
 
    or you can install it with `pip install pvdaq_access` as explained in the installation instructions into the environment.
@@ -46,6 +46,6 @@ steps:
 Documentation
 =============
 
-You can find more detail on the functions and tools explored in:
+You can find more detail on functions and tools to use PVDAQ data with in:
 [RdTools ReadtheDocs](https://rdtools.readthedocs.io/en/stable/)
 [PVAnalytics](https://pvanalytics.readthedocs.io/en/stable/)
