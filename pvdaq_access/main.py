@@ -43,6 +43,11 @@ def downloadSolarPrizeData(system_id, path, file_type='csv'):
     void
     
     '''
+
+    if file_type != 'csv':
+        print("Solar Prize Data is only on csv. Updating request format")
+        file_type = 'csv'
+
     s3 = boto3.resource("s3")
     s3.meta.client.meta.events.register("choose-signer.s3.*", disable_signing)
     bucket = s3.Bucket("oedi-data-lake")
