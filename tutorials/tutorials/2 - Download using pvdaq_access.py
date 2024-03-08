@@ -78,7 +78,7 @@ else: #Normal PVDAQ archives
 
 # ## 3. Load and plot the data
 
-# In[7]:
+# In[4]:
 
 
 import pandas as pd
@@ -92,7 +92,7 @@ df.info()
 
 # Perform a quick plot to examine data
 
-# In[8]:
+# In[5]:
 
 
 import matplotlib.pyplot as plt

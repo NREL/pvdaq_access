@@ -5,4 +5,4 @@ format: jb-book
 root: intro
 chapters:
 - file: tutorials/1 - Solar Bounty Data Prize Data Download
-- file: tutorials/2 - Download using pvdq_access
+- file: tutorials/2 - Download using pvdaq_access

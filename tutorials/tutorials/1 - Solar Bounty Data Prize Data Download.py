@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Overview
+# # 1 - Solar Bounty Data Prize Data Download
+# 
+# ## Overview
 # This notebook is a demonstration of how to download data from the OEDI PVDAQ data archives. It is focused on the process for downloading data from the PV Solar Bounty Data Prize sites, that utilize a slightly different archive architecture thatn the rest of the PVDAQ archives. For more information on how to download the other datasets within the PVDAQ archives see the code within the main.py module located inthis same repository.
 # 
 # The PVDAQ Data Archives resides in an Amazon Web Services Simple Storage Solution (S3) bucket. As such, there are modules available to provide you access to this data easily throughthose APIs. This part of the module will focus on the Boto3 module for performing the download.Since this is a series of public datasets, the method does not require the passing of authorization keys.
