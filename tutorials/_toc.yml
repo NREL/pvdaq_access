@@ -4,5 +4,5 @@
 format: jb-book
 root: intro
 chapters:
-- file: tutorials/1 - Downloading Data, and doing a Quality Assessment
-- file: tutorials/2 - Running RdTools on the data
+- file: tutorials/1 - Solar Bounty Data Prize Data Download
+- file: tutorials/2 - Download using pvdq_access
