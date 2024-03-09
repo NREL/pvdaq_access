@@ -58,7 +58,7 @@ setup(
         'Development Status :: 4 - Beta',
 
         # Indicate who your project is intended for
-        'Intended Audience :: Science/Research, Industry',
+        'Intended Audience :: Science/Research',
 
         # Pick your license as you wish (should match "license" above)
         'License :: OSI Approved :: BSD License',
