@@ -1,8 +1,10 @@
+<img src="tutorials\PVDAQ_logo.png" width="100">
 
 # pvdaq_access
-Detailed documentaion is found in [pvdaq_access Pages][3]
+Detailed documentation is found in [pvdaq_access Pages](https://nrel.github.io/pvdaq_access/)(Ref [3])
+
 ## Overview
-Data from public PV Sites is available through the [OEDI Data Lake][1]. This data is refreshed monthly where possible, and is stored in daily CSV or Parquet files for each system. This softeware module will allow a user to downlaod all the data to their local system from the OEDI Data Lake.
+Data from public PV Sites is available through the [OEDI Data Lake](https://data.openei.org/submissions/4568)(Ref [1]). This data is refreshed monthly where possible, and is stored in daily CSV or Parquet files for each system. This software module will allow a user to downlaod all the data to their local system from the OEDI Data Lake.
 
 ### Solar Bounty Data Prize Datasets
 Part of the data archives in PVDAQ contains the winning data sets from the 2023 Solar Data Bounty Prize systems. This storage architecture is a bit different, therefore a new function has been added to facilitate this download.
@@ -10,13 +12,15 @@ Part of the data archives in PVDAQ contains the winning data sets from the 2023 
 When the software runs it will ask via a console prompt if the system you are downloading is one of the prize sites. If it is, it will extract data from those archives instead of the PVDAQ basic archives.
 
 ## Usage
-This is an exectuable python packge. It requires the passing of parameters at the start.
+This is both a set of functions as well as an exectuable python packge. It requires the passing of parameters at the start.
 * system : Followed by an integer of the system unique ID. 
 * path : Followed by a string that targets the local computer location/path you wish the data to be stored into.
 * parquet : A flag that changes the data type from default CSV to Parquet file for download.
 
-System IDs for PVDAQ basic sites can be found in the metadata file for Available System Information on the [OEDI site][1]</br>
-System IDs for the Prize sites can be found on their repository folders within the PVDAQ Data Lake or from information on the [PVDAQ interactive website][2] 
+For using the functions, see the tutorial examples folder.
+
+System IDs for PVDAQ basic sites can be found in the metadata file for Available System Information on the [OEDI site](https://data.openei.org/submissions/4568)(Ref [1])</br>
+System IDs for the Prize sites can be found on their repository folders within the PVDAQ Data Lake or from information on the [PVDAQ interactive website](https://openei.org/wiki/PVDAQ)(Ref [2]) 
 
 ## Infomation on running the program
 When the software starts the user may be prompted for additional information. The software will prompt the user to identify if this is a Solar Data Bounty Prize request or one of the 
@@ -35,6 +39,7 @@ difficult to do without prepration since some systems have many years of data an
 For these larger Data Prize systems we advise assuring the local system being downloaded to has enough space and that there are not any bandwidth network issues to address. In some cases
 you could be downloading hundreds of gigabytes of data. Plan accordingly.
 
+## References
 </code>
 [1]:https://data.openei.org/submissions/4568
 [2]:https://openei.org/wiki/PVDAQ
