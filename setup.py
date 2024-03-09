@@ -97,7 +97,6 @@ setup(
         's3transfer',
         'six',
         'urllib3',
-        'configparser',
         'requests',
         ],
 
